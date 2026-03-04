@@ -269,9 +269,13 @@ this.nav = {
 setupSoundButton() {
   const btn = document.getElementById("soundToggle");
 
-  const updateIcon = () => {
-    btn.textContent = this.soundEnabled ? "🔊" : "🔇";
-  };
+const icon = document.getElementById("soundIcon");
+
+const updateIcon = () => {
+  icon.src = this.soundEnabled
+    ? "images/som.png"
+    : "images/som2.png";
+};
 
   updateIcon();
 
@@ -466,6 +470,8 @@ window.chartSystem = new DigimonChart();
 ========================= */
 
 function setupMenuSystem() {
+  const menuSound = new Audio("sounds/blop2.ogg");
+  menuSound.volume = 0.5;
   const detoContent = document.getElementById("deto-content");
   const buttons = document.querySelectorAll(".menu-btn");
   const chart = document.querySelector(".chart");
@@ -475,6 +481,13 @@ function setupMenuSystem() {
 
   buttons.forEach(btn => {
     btn.addEventListener("click", () => {
+
+// 🔊 som de menu
+if (window.chartSystem && window.chartSystem.soundEnabled) {
+  const menuSound = new Audio("sounds/click.ogg");
+  menuSound.volume = 0.5;
+  menuSound.play();
+}
 
       // 🔄 Troca botão claro/escuro
       buttons.forEach(b => {
@@ -494,7 +507,6 @@ if (page === "inicio") {
   chart.src = "images/chart.png";
   slots.style.display = "block";
   cursor.style.display = "block";
-  soundBtn.style.display = "block";
   detoContent.style.display = "none";
 }
 
@@ -504,7 +516,6 @@ if (page === "deto") {
 
   slots.style.display = "none";
   cursor.style.display = "none";
-  soundBtn.style.display = "none";
   chart.src = "images/conteudo.png";
   detoContent.style.display = "block";
 }
@@ -545,4 +556,3 @@ window.addEventListener("resize", autoResizeMenuText);
 /* =========================
    detonado
 ========================= */
-

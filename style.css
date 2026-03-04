@@ -102,15 +102,19 @@ body {
 
 .sound-btn {
   position: absolute;
-  bottom: 15px;
-  right: 15px;
-  outline: none;
-  font-size: 26px;
+  top: 95%;
+  right: -40px;  /* ajusta manualmente */
+  transform: translateY(0%);
+  font-size: 28px;
   background: transparent;
   border: none;
-  padding: 0;
-  z-index: 9999;
   cursor: pointer;
+}
+
+.sound-btn img {
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated;
 }
 
 .top-menu {
@@ -240,6 +244,16 @@ body {
     inset 4px 4px 0 #6987a0;       /* sombra */
 }
 
+body {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.deto-content,
+.deto-content * {
+  user-select: text;
+  -webkit-user-select: text;
+}
 
 @media (max-width: 768px) {
   .main {
@@ -251,4 +265,3 @@ body {
     min-height: 50vh; /* 40% da altura da tela */
   }
 }
-
