@@ -154,12 +154,20 @@ class DigimonChart {
     this.animInterval = null;
     this.lastWidth = null;
 
+    this.expandRect = document.getElementById("expand-rect");
+    this.inTransition = false;
+
     this.moveSound = new Audio("sounds/blop.ogg");
     this.moveSound.volume = 0.4; // ajuste se quiser
     this.selectSound = new Audio("sounds/click.ogg");
     this.selectSound.volume = 0.5; // ajuste se quiser
+    this.closeSound = new Audio("sounds/close.ogg");
+    this.closeSound.volume = 0.5; // ajuste se quiser
     this.soundEnabled = localStorage.getItem("soundEnabled") !== "false";
-    
+this.inContent2 = false;
+
+this.closeButton = document.getElementById("close-button");
+
     this.chart = document.querySelector(".chart");
     this.container = document.getElementById("slots-container");
     this.cursor = document.getElementById("cursor");
@@ -168,83 +176,83 @@ class DigimonChart {
     this.slots = [];
     this.nav = [];
     this.columns = [
-  [0,1,2,3],          // 1–4
-  [4,5,6,7],          // 5–8
-  [8,9,10,11,12,13,14,15,16], // 9–17
-  [17,18,19,20,21,22,23,24],  // 18–25
-  [25,26,27,28,29,30,31],     // 26–32
-  [32,33,34,35,36,37,38],     // 33–39
-  [39,40,41,42,43,44,45],     // 40–46
-  [46,47,48,49,50,51,52,53],  // 47–54
-  [54,55,56,57,58,59,60],     // 55–61
-  [61,62,63]                  // 62–64
-];
-this.nav = {
-  0:{w:63,a:54,s:1,d:4},
-  1:{w:0,a:56,s:2,d:5},
-  2:{w:1,a:58,s:3,d:6},
-  3:{w:2,a:60,s:4,d:7},
-  4:{w:3,a:0,s:5,d:8},
-  5:{w:4,a:1,s:6,d:10},
-  6:{w:5,a:2,s:7,d:12},
-  7:{w:6,a:3,s:8,d:14},
-  8:{w:7,a:4,s:9,d:17},
-  9:{w:8,a:4,s:10,d:18},
-  10:{w:9,a:5,s:11,d:19},
-  11:{w:10,a:5,s:12,d:20},
-  12:{w:11,a:6,s:13,d:21},
-  13:{w:12,a:6,s:14,d:22},
-  14:{w:13,a:7,s:15,d:23},
-  15:{w:14,a:7,s:16,d:24},
-  16:{w:15,a:7,s:17,d:24},
-  17:{w:16,a:8,s:18,d:25},
-  18:{w:17,a:9,s:19,d:26},
-  19:{w:18,a:10,s:20,d:27},
-  20:{w:19,a:11,s:21,d:28},
-  21:{w:20,a:12,s:22,d:29},
-  22:{w:21,a:13,s:23,d:30},
-  23:{w:22,a:14,s:24,d:31},
-  24:{w:23,a:15,s:61,d:61},
-  25:{w:24,a:17,s:26,d:32},
-  26:{w:25,a:18,s:27,d:33},
-  27:{w:26,a:19,s:28,d:34},
-  28:{w:27,a:20,s:29,d:35},
-  29:{w:28,a:21,s:30,d:36},
-  30:{w:29,a:22,s:31,d:37},
-  31:{w:30,a:23,s:24,d:38},
-  32:{w:31,a:25,s:33,d:39},
-  33:{w:32,a:26,s:34,d:40},
-  34:{w:33,a:27,s:35,d:41},
-  35:{w:34,a:28,s:36,d:42},
-  36:{w:35,a:29,s:37,d:43},
-  37:{w:36,a:30,s:38,d:44},
-  38:{w:37,a:31,s:61,d:45},
-  39:{w:38,a:32,s:40,d:46},
-  40:{w:39,a:33,s:41,d:47},
-  41:{w:40,a:34,s:42,d:48},
-  42:{w:41,a:35,s:43,d:49},
-  43:{w:42,a:36,s:44,d:50},
-  44:{w:43,a:37,s:45,d:51},
-  45:{w:44,a:38,s:61,d:52},
-  46:{w:45,a:39,s:47,d:54},
-  47:{w:46,a:40,s:48,d:55},
-  48:{w:47,a:41,s:49,d:56},
-  49:{w:48,a:42,s:50,d:57},
-  50:{w:49,a:43,s:51,d:58},
-  51:{w:50,a:44,s:52,d:59},
-  52:{w:51,a:45,s:53,d:60},
-  53:{w:52,a:45,s:63,d:60},
-  54:{w:53,a:46,s:55,d:0},
-  55:{w:54,a:47,s:56,d:0},
-  56:{w:55,a:48,s:57,d:1},
-  57:{w:56,a:49,s:58,d:1},
-  58:{w:57,a:50,s:59,d:2},
-  59:{w:58,a:51,s:60,d:2},
-  60:{w:59,a:52,s:53,d:3},
-  61:{w:45,a:24,s:0,d:62},
-  62:{w:53,a:61,s:0,d:63},
-  63:{w:53,a:62,s:0,d:0}
-};
+      [0, 1, 2, 3],          // 1–4
+      [4, 5, 6, 7],          // 5–8
+      [8, 9, 10, 11, 12, 13, 14, 15, 16], // 9–17
+      [17, 18, 19, 20, 21, 22, 23, 24],  // 18–25
+      [25, 26, 27, 28, 29, 30, 31],     // 26–32
+      [32, 33, 34, 35, 36, 37, 38],     // 33–39
+      [39, 40, 41, 42, 43, 44, 45],     // 40–46
+      [46, 47, 48, 49, 50, 51, 52, 53],  // 47–54
+      [54, 55, 56, 57, 58, 59, 60],     // 55–61
+      [61, 62, 63]                  // 62–64
+    ];
+    this.nav = {
+      0: { w: 63, a: 54, s: 1, d: 4 },
+      1: { w: 0, a: 56, s: 2, d: 5 },
+      2: { w: 1, a: 58, s: 3, d: 6 },
+      3: { w: 2, a: 60, s: 4, d: 7 },
+      4: { w: 3, a: 0, s: 5, d: 8 },
+      5: { w: 4, a: 1, s: 6, d: 10 },
+      6: { w: 5, a: 2, s: 7, d: 12 },
+      7: { w: 6, a: 3, s: 8, d: 14 },
+      8: { w: 7, a: 4, s: 9, d: 17 },
+      9: { w: 8, a: 4, s: 10, d: 18 },
+      10: { w: 9, a: 5, s: 11, d: 19 },
+      11: { w: 10, a: 5, s: 12, d: 20 },
+      12: { w: 11, a: 6, s: 13, d: 21 },
+      13: { w: 12, a: 6, s: 14, d: 22 },
+      14: { w: 13, a: 7, s: 15, d: 23 },
+      15: { w: 14, a: 7, s: 16, d: 24 },
+      16: { w: 15, a: 7, s: 17, d: 24 },
+      17: { w: 16, a: 8, s: 18, d: 25 },
+      18: { w: 17, a: 9, s: 19, d: 26 },
+      19: { w: 18, a: 10, s: 20, d: 27 },
+      20: { w: 19, a: 11, s: 21, d: 28 },
+      21: { w: 20, a: 12, s: 22, d: 29 },
+      22: { w: 21, a: 13, s: 23, d: 30 },
+      23: { w: 22, a: 14, s: 24, d: 31 },
+      24: { w: 23, a: 15, s: 61, d: 61 },
+      25: { w: 24, a: 17, s: 26, d: 32 },
+      26: { w: 25, a: 18, s: 27, d: 33 },
+      27: { w: 26, a: 19, s: 28, d: 34 },
+      28: { w: 27, a: 20, s: 29, d: 35 },
+      29: { w: 28, a: 21, s: 30, d: 36 },
+      30: { w: 29, a: 22, s: 31, d: 37 },
+      31: { w: 30, a: 23, s: 24, d: 38 },
+      32: { w: 31, a: 25, s: 33, d: 39 },
+      33: { w: 32, a: 26, s: 34, d: 40 },
+      34: { w: 33, a: 27, s: 35, d: 41 },
+      35: { w: 34, a: 28, s: 36, d: 42 },
+      36: { w: 35, a: 29, s: 37, d: 43 },
+      37: { w: 36, a: 30, s: 38, d: 44 },
+      38: { w: 37, a: 31, s: 61, d: 45 },
+      39: { w: 38, a: 32, s: 40, d: 46 },
+      40: { w: 39, a: 33, s: 41, d: 47 },
+      41: { w: 40, a: 34, s: 42, d: 48 },
+      42: { w: 41, a: 35, s: 43, d: 49 },
+      43: { w: 42, a: 36, s: 44, d: 50 },
+      44: { w: 43, a: 37, s: 45, d: 51 },
+      45: { w: 44, a: 38, s: 61, d: 52 },
+      46: { w: 45, a: 39, s: 47, d: 54 },
+      47: { w: 46, a: 40, s: 48, d: 55 },
+      48: { w: 47, a: 41, s: 49, d: 56 },
+      49: { w: 48, a: 42, s: 50, d: 57 },
+      50: { w: 49, a: 43, s: 51, d: 58 },
+      51: { w: 50, a: 44, s: 52, d: 59 },
+      52: { w: 51, a: 45, s: 53, d: 60 },
+      53: { w: 52, a: 45, s: 63, d: 60 },
+      54: { w: 53, a: 46, s: 55, d: 0 },
+      55: { w: 54, a: 47, s: 56, d: 0 },
+      56: { w: 55, a: 48, s: 57, d: 1 },
+      57: { w: 56, a: 49, s: 58, d: 1 },
+      58: { w: 57, a: 50, s: 59, d: 2 },
+      59: { w: 58, a: 51, s: 60, d: 2 },
+      60: { w: 59, a: 52, s: 53, d: 3 },
+      61: { w: 45, a: 24, s: 0, d: 62 },
+      62: { w: 53, a: 61, s: 0, d: 63 },
+      63: { w: 53, a: 62, s: 0, d: 0 }
+    };
     this.init();
   }
 
@@ -255,14 +263,14 @@ this.nav = {
       this.chart.addEventListener("load", () => this.setup());
     }
 
-let resizeTimer;
+    let resizeTimer;
 
-window.addEventListener("resize", () => {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(() => {
-    this.onResize();
-  }, 50);
-});
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        this.onResize();
+      }, 50);
+    });
 
     document.addEventListener("keydown", (e) => this.onKey(e));
   }
@@ -273,27 +281,30 @@ window.addEventListener("resize", () => {
     this.updateLayout();
     this.updateCursor();
     this.updateAnimation();
+    this.closeButton.addEventListener("click",()=>{
+this.closeContent();
+});
   }
-  
-setupSoundButton() {
-  const btn = document.getElementById("soundToggle");
 
-const icon = document.getElementById("soundIcon");
+  setupSoundButton() {
+    const btn = document.getElementById("soundToggle");
 
-const updateIcon = () => {
-  icon.src = this.soundEnabled
-    ? "images/som.png"
-    : "images/som2.png";
-};
+    const icon = document.getElementById("soundIcon");
 
-  updateIcon();
+    const updateIcon = () => {
+      icon.src = this.soundEnabled
+        ? "images/som.png"
+        : "images/som2.png";
+    };
 
-  btn.addEventListener("click", () => {
-    this.soundEnabled = !this.soundEnabled;
-    localStorage.setItem("soundEnabled", this.soundEnabled);
     updateIcon();
-  });
-}
+
+    btn.addEventListener("click", () => {
+      this.soundEnabled = !this.soundEnabled;
+      localStorage.setItem("soundEnabled", this.soundEnabled);
+      updateIcon();
+    });
+  }
   createSlots() {
     this.container.innerHTML = "";
     this.slotImages = [];
@@ -312,21 +323,21 @@ const updateIcon = () => {
 
       div.appendChild(img);
 
-div.addEventListener("mouseenter", () => {
-  if (this.currentIndex !== index) {
-    this.currentIndex = index;
-    this.playMoveSound();
-  }
+      div.addEventListener("mouseenter", () => {
+        if (this.currentIndex !== index) {
+          this.currentIndex = index;
+          this.playMoveSound();
+        }
 
-  this.activateCursor();
-  this.updateCursor();
-  this.updateAnimation();
-});
+        this.activateCursor();
+        this.updateCursor();
+        this.updateAnimation();
+      });
 
       div.addEventListener("click", () => {
-  this.playSelectSound();
-  this.select();
-});
+        this.playSelectSound();
+        this.select();
+      });
 
       this.container.appendChild(div);
 
@@ -340,6 +351,13 @@ div.addEventListener("mouseenter", () => {
   updateLayout() {
     const rect = this.chart.getBoundingClientRect();
     const scale = rect.width / this.CHART_BASE_WIDTH;
+    const closeSize = Math.round(40 * scale);
+
+this.closeButton.style.width = closeSize + "px";
+this.closeButton.style.height = closeSize + "px";
+
+this.closeButton.style.right = Math.round(30 * scale) + "px";
+this.closeButton.style.top = Math.round(30 * scale) + "px";
     const size = Math.round(this.SLOT_BASE_SIZE * scale);
 
     this.slots.forEach((div, index) => {
@@ -347,8 +365,8 @@ div.addEventListener("mouseenter", () => {
 
       div.style.width = size + "px";
       div.style.height = size + "px";
-      div.style.left = Math.round(slot.x * rect.width) + "px";
-      div.style.top = Math.round(slot.y * rect.height) + "px";
+      div.style.left = slot.x * rect.width + "px";
+      div.style.top = slot.y * rect.height + "px";
     });
   }
 
@@ -368,16 +386,16 @@ div.addEventListener("mouseenter", () => {
     const offsetX = chartRect.left - panelRect.left;
     const offsetY = chartRect.top - panelRect.top;
 
-const width = Math.round(size * 1.15);
-const height = size;
+    const width = Math.round(size * 1.15);
+    const height = size;
 
-this.cursor.style.width = width + "px";
-this.cursor.style.height = height + "px";
+    this.cursor.style.width = width + "px";
+    this.cursor.style.height = height + "px";
 
-this.cursor.style.left =
-  offsetX +
-  Math.round(slot.x * chartRect.width) -
-  (width - size) / 2 + "px";
+    this.cursor.style.left =
+      offsetX +
+      Math.round(slot.x * chartRect.width) -
+      (width - size) / 2 + "px";
 
     this.cursor.style.top =
       offsetY + Math.round(slot.y * chartRect.height) + "px";
@@ -385,10 +403,10 @@ this.cursor.style.left =
 
   updateAnimation() {
     this.slotImages.forEach(img => {
-  if (img.src !== img.dataset.idle) {
-    img.src = img.dataset.idle;
-  }
-});
+      if (img.src !== img.dataset.idle) {
+        img.src = img.dataset.idle;
+      }
+    });
 
     if (this.animInterval) clearInterval(this.animInterval);
 
@@ -404,80 +422,245 @@ this.cursor.style.left =
     }, 400);
   }
 
-  select() {
-  }
-
-onResize() {
-
-  const rect = this.chart.getBoundingClientRect();
-
-  if (rect.width === this.lastWidth) return;
-
-  this.lastWidth = rect.width;
-
-  requestAnimationFrame(() => {
-    this.updateLayout();
-    this.updateCursor();
-  });
+select(){
+  this.playExpandAnimation();
 }
 
-onKey(e) {
-  if (!this.active) return;
-  let direction = null;
+playExpandAnimation(){
 
-  if (["ArrowUp", "w", "W"].includes(e.key)) direction = "up";
-  if (["ArrowDown", "s", "S"].includes(e.key)) direction = "down";
-  if (["ArrowLeft", "a", "A"].includes(e.key)) direction = "left";
-  if (["ArrowRight", "d", "D"].includes(e.key)) direction = "right";
+if(this.inTransition) return;
 
-if (direction) {
-  const prevIndex = this.currentIndex;
+this.inTransition = true;
 
-  this.moveCursor(direction);
+const slot = this.slots[this.currentIndex];
+const rect = slot.getBoundingClientRect();
+const chartRect = this.chart.getBoundingClientRect();
+const panelRect = this.chart.parentElement.getBoundingClientRect();
 
-  if (this.currentIndex !== prevIndex) {
-    this.playMoveSound();
-  }
+const expand = this.expandRect;
 
-  this.activateCursor();
-  this.updateCursor();
-  this.updateAnimation();
+const startX = rect.left + rect.width/2 - panelRect.left;
+const startY = rect.top + rect.height/2 - panelRect.top;
+
+const endX = chartRect.left - panelRect.left;
+const endY = chartRect.top - panelRect.top;
+
+expand.style.transition = "none";
+
+expand.style.left = startX + "px";
+expand.style.top = startY + "px";
+expand.style.width = "0px";
+expand.style.height = "0px";
+expand.style.opacity = "1";
+
+/* força render */
+expand.offsetHeight;
+
+expand.style.transition =
+"left 0.2s ease, top 0.2s ease, width 0.2s ease, height 0.2s ease";
+
+expand.style.left = endX + "px";
+expand.style.top = endY + "px";
+expand.style.width = chartRect.width + "px";
+expand.style.height = chartRect.height + "px";
+
+setTimeout(()=>{
+
+this.expandRect.style.opacity = "0";   // faz o retângulo sumir
+this.openContent2();
+
+},200);
+
 }
 
-  if (e.key === "Enter") {
-    this.playSelectSound();
-    this.select();
-  }
+playCollapseAnimation(){
+
+if(this.inTransition) return;
+
+this.inTransition = true;
+
+const slot = this.slots[this.currentIndex];
+const rect = slot.getBoundingClientRect();
+const chartRect = this.chart.getBoundingClientRect();
+const panelRect = this.chart.parentElement.getBoundingClientRect();
+
+const expand = this.expandRect;
+
+const endX = rect.left + rect.width/2 - panelRect.left;
+const endY = rect.top + rect.height/2 - panelRect.top;
+
+expand.style.transition = "none";
+
+expand.style.left = chartRect.left - panelRect.left + "px";
+expand.style.top = chartRect.top - panelRect.top + "px";
+expand.style.width = chartRect.width + "px";
+expand.style.height = chartRect.height + "px";
+expand.style.opacity = "1";
+
+/* força render */
+expand.offsetHeight;
+
+expand.style.transition =
+"left 0.2s ease, top 0.2s ease, width 0.2s ease, height 0.2s ease";
+
+expand.style.left = endX + "px";
+expand.style.top = endY + "px";
+expand.style.width = "0px";
+expand.style.height = "0px";
+
+setTimeout(()=>{
+
+this.expandRect.style.opacity = 0;
+this.returnToChart();
+this.inTransition = false;
+
+},200);
+
 }
-moveCursor(direction) {
-  const keyMap = {
-    up: "w",
-    down: "s",
-    left: "a",
-    right: "d"
-  };
 
-  const dirKey = keyMap[direction];
-  const next = this.nav[this.currentIndex][dirKey];
+openContent2(){
 
-  if (next !== undefined) {
-    this.currentIndex = next;
-  }
+const slots = document.getElementById("slots-container");
+const cursor = document.getElementById("cursor");
+
+slots.style.display = "none";
+cursor.style.display = "none";
+
+this.chart.src = "images/conteudo2.png";
+
+this.inContent2 = true;
+this.inTransition = false;
+this.active = false;
+this.closeButton.style.opacity = "1";
+this.closeButton.style.pointerEvents = "auto";
 }
-playMoveSound() {
-  if (!this.soundEnabled || !this.active) return;
 
-  const sound = this.moveSound.cloneNode();
-  sound.volume = this.moveSound.volume;
+closeContent(){
+
+if(!this.inContent2 || this.inTransition) return;
+
+this.chart.src = "images/chart.png";
+
+const slots = document.getElementById("slots-container");
+const cursor = document.getElementById("cursor");
+
+slots.style.display = "block";
+cursor.style.display = "block";
+
+this.closeButton.style.opacity = "0";
+this.closeButton.style.pointerEvents = "none";
+this.playCloseSound();
+this.playCollapseAnimation();
+
+}
+
+returnToChart(){
+
+const slots = document.getElementById("slots-container");
+const cursor = document.getElementById("cursor");
+
+this.chart.src = "images/chart.png";
+
+slots.style.display = "block";
+cursor.style.display = "block";
+
+this.expandRect.style.opacity = 0;
+
+this.inContent2 = false;
+this.active = true;
+this.closeButton.style.opacity = "0";
+this.closeButton.style.pointerEvents = "none";
+
+this.updateCursor();
+
+}
+
+  onResize() {
+
+    const rect = this.chart.getBoundingClientRect();
+
+    if (rect.width === this.lastWidth) return;
+
+    this.lastWidth = rect.width;
+
+    requestAnimationFrame(() => {
+      this.updateLayout();
+      this.updateCursor();
+    });
+  }
+
+  onKey(e) {
+
+if(e.key === "Escape" && this.inContent2){
+this.closeContent();
+return;
+}
+    if (!this.active) return;
+    let direction = null;
+
+    if (["ArrowUp", "w", "W"].includes(e.key)) direction = "up";
+    if (["ArrowDown", "s", "S"].includes(e.key)) direction = "down";
+    if (["ArrowLeft", "a", "A"].includes(e.key)) direction = "left";
+    if (["ArrowRight", "d", "D"].includes(e.key)) direction = "right";
+
+    if (direction) {
+      const prevIndex = this.currentIndex;
+
+      this.moveCursor(direction);
+
+      if (this.currentIndex !== prevIndex) {
+        this.playMoveSound();
+      }
+
+      this.activateCursor();
+      this.updateCursor();
+      this.updateAnimation();
+    }
+
+    if (e.key === "Enter") {
+      this.playSelectSound();
+      this.select();
+    }
+  }
+  moveCursor(direction) {
+    const keyMap = {
+      up: "w",
+      down: "s",
+      left: "a",
+      right: "d"
+    };
+
+    const dirKey = keyMap[direction];
+    const next = this.nav[this.currentIndex][dirKey];
+
+    if (next !== undefined) {
+      this.currentIndex = next;
+    }
+  }
+  playMoveSound() {
+    if (!this.soundEnabled || !this.active) return;
+
+    const sound = this.moveSound.cloneNode();
+    sound.volume = this.moveSound.volume;
+    sound.play();
+  }
+
+  playSelectSound() {
+    if (!this.soundEnabled || !this.active) return;
+
+    const sound = this.selectSound.cloneNode();
+    sound.volume = this.selectSound.volume;
+    sound.play();
+  }
+
+playCloseSound() {
+
+  if (!this.soundEnabled) return;
+
+  const sound = this.closeSound.cloneNode();
+  sound.volume = this.closeSound.volume;
   sound.play();
-}
 
-playSelectSound() {
-  if (!this.soundEnabled || !this.active) return;
-
-  const sound = this.selectSound.cloneNode();
-  sound.volume = this.selectSound.volume;
-  sound.play();
 }
 }
 
@@ -500,12 +683,16 @@ function setupMenuSystem() {
   buttons.forEach(btn => {
     btn.addEventListener("click", () => {
 
-// 🔊 som de menu
-if (window.chartSystem && window.chartSystem.soundEnabled) {
-  const menuSound = new Audio("sounds/click.ogg");
-  menuSound.volume = 0.5;
-  menuSound.play();
+      if(window.chartSystem){
+window.chartSystem.returnToChart();
 }
+
+      // 🔊 som de menu
+      if (window.chartSystem && window.chartSystem.soundEnabled) {
+        const menuSound = new Audio("sounds/click.ogg");
+        menuSound.volume = 0.5;
+        menuSound.play();
+      }
 
       // 🔄 Troca botão claro/escuro
       buttons.forEach(b => {
@@ -518,25 +705,31 @@ if (window.chartSystem && window.chartSystem.soundEnabled) {
 
       const page = btn.dataset.page;
 
-if (page === "inicio") {
+      if (page === "inicio") {
 
-  window.chartSystem.active = true; 
+        window.chartSystem.active = true;
 
-  chart.src = "images/chart.png";
-  slots.style.display = "block";
-  cursor.style.display = "block";
-  detoContent.style.display = "none";
+        chart.src = "images/chart.png";
+        slots.style.display = "block";
+        cursor.style.display = "block";
+        detoContent.style.display = "none";
+      }
+
+      if (page === "deto") {
+
+        window.chartSystem.active = false; // 👈 desativa sistema
+
+        slots.style.display = "none";
+        cursor.style.display = "none";
+        chart.src = "images/conteudo.png";
+        detoContent.style.display = "block";
+
+        if(window.chartSystem){
+window.chartSystem.expandRect.style.opacity = 0;
+window.chartSystem.inContent2 = false;
+window.chartSystem.inTransition = false;
 }
-
-if (page === "deto") {
-
-  window.chartSystem.active = false; // 👈 desativa sistema
-
-  slots.style.display = "none";
-  cursor.style.display = "none";
-  chart.src = "images/conteudo.png";
-  detoContent.style.display = "block";
-}
+      }
 
     });
   });

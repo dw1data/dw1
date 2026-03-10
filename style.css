@@ -1,21 +1,19 @@
-body{ 
-  margin:0;
-  background:url("images/fundo.png") repeat;
-  background-size:150px;
+body {
+  margin: 0;
+  background: url("images/fundo.png") repeat;
+  background-size: 150px;
 
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  min-height:100vh;   /* trocado */
-  overflow:hidden;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
-.page{
-  position:relative;
-
-  width:min(65vw, 1200px);  /* limita crescimento */
-  aspect-ratio:16/9;        /* proporção fixa */
+.page {
+  position: relative;
+  width: min(65vw, 1200px);
 }
 
 .main {
@@ -31,13 +29,13 @@ body{
   image-rendering: pixelated;
 }
 
-.conteudo{
+.conteudo {
   display: flex;
   justify-content: center;
   margin-top: 40px;
 }
 
-.conteudo-box{
+.conteudo-box {
   width: 90%;
   max-width: 1000px;
 
@@ -45,7 +43,7 @@ body{
   box-sizing: border-box;
 
   border: 40px solid transparent;
-  
+
 }
 
 .chart {
@@ -68,7 +66,8 @@ body{
   position: absolute;
   cursor: pointer;
   display: flex;
-  justify-content: center;  /* centro horizontal */
+  justify-content: center;
+  /* centro horizontal */
   align-items: flex-end;
 }
 
@@ -79,51 +78,40 @@ body{
 }
 
 .slot img {
-  width: 80%;       /* diminui aqui */
+  width: 80%;
+  /* diminui aqui */
   height: auto;
   object-fit: contain;
   pointer-events: none;
-  image-rendering: pixelated; 
+  image-rendering: pixelated;
   transform: translateY(-5px);
 }
 
-.slot:nth-child(12) img {      /*elecmon */
-  transform: translateY(1px);
+.sound-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translate(85%, 0%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
 
-.slot:nth-child(16) img {      /*betamon */
-  transform: translateY(1px);
-}
-
-.slot:nth-child(27) img {      /*drimogemon */
-  transform: translateY(1px);
-}
-
-.sound-btn{
-  position:absolute;
-  bottom:0;
-  right:0;
-  transform:translate(85%, 0%);
-  background:transparent;
-  border:none;
-  cursor:pointer;
-}
-
-.sound-btn img{
+.sound-btn img {
   width: 2vw;
-  image-rendering:pixelated;
+  image-rendering: pixelated;
 }
 
-.top-menu{
-  position:absolute;
-  top:0;
-  left:0;
-  transform:translate(10%, -92%);
-  display:flex;
-  z-index:100;
+.top-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(10%, -92%);
+  display: flex;
+  z-index: 100;
 }
 
-.menu-btn{
+.menu-btn {
   width: 12vw;
   position: relative;
 }
@@ -150,7 +138,7 @@ body{
 
 /* BOTÃO ATIVO (claro) */
 .menu-btn.active span {
-  color: #D5D5D5; 
+  color: #D5D5D5;
 }
 
 /* BOTÃO INATIVO (escuro) */
@@ -172,7 +160,7 @@ body{
   text-shadow: 1px 1px 0 #000000;
 }
 
-.titletxt{
+.titletxt {
   width: 80%;
   margin: 20px auto;
   text-align: center;
@@ -189,7 +177,8 @@ body{
   left: 3%;
   width: 94%;
   height: 94%;
-  display: none;       /* começa escondido */
+  display: none;
+  /* começa escondido */
   pointer-events: none;
 }
 
@@ -197,7 +186,7 @@ body{
   width: 100%;
   height: 100%;
 
-  overflow-y: auto;    /* 👈 scroll interno */
+  overflow-y: auto;
   padding: 20px;
   box-sizing: border-box;
 
@@ -207,33 +196,41 @@ body{
 
   pointer-events: auto;
 }
+
 /* =========================
    SCROLL ESTILO PS1 3D
 ========================= */
 
 .deto-scroll::-webkit-scrollbar {
-  width: 26px; /* largura total maior */
+  width: 26px;
+  /* largura total maior */
 }
 
 /* TRILHA */
 .deto-scroll::-webkit-scrollbar-track {
   background: #314a5a;
 
-   box-shadow:
-    inset -4px -4px 0 #6987a0,  /* luz */
-    inset 4px 4px 0 #080808;       /* sombra */
+  box-shadow:
+    inset -4px -4px 0 #6987a0,
+    /* luz */
+    inset 4px 4px 0 #080808;
+  /* sombra */
 }
 
 /* THUMB */
 .deto-scroll::-webkit-scrollbar-thumb {
   background: #5a7383;
 
-  border: 4px solid transparent;  /* 👈 cria espaço interno */
-  background-clip: content-box;   /* 👈 mantém a cor só dentro */
+  border: 4px solid transparent;
+  /* 👈 cria espaço interno */
+  background-clip: content-box;
+  /* 👈 mantém a cor só dentro */
 
   box-shadow:
-    inset -4px -4px 0 #080808,  /* luz */
-    inset 4px 4px 0 #6987a0;       /* sombra */
+    inset -4px -4px 0 #080808,
+    /* luz */
+    inset 4px 4px 0 #6987a0;
+  /* sombra */
 }
 
 body {
@@ -247,8 +244,60 @@ body {
   -webkit-user-select: text;
 }
 
+/* CONTEUDO SLOTS */
+
+#expand-rect {
+  position: absolute;
+  border: 4px solid #8a8a8a;
+  background: transparent;
+
+  width: 0;
+  height: 0;
+
+  left: 0;
+  top: 0;
+
+  pointer-events: none;
+  opacity: 0;
+
+  box-sizing: border-box;
+
+  transition:
+    left 0.35s ease,
+    top 0.35s ease,
+    width 0.35s ease,
+    height 0.35s ease,
+    opacity 0.2s;
+  z-index: 800;
+}
+
+#close-button {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 60;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#close-button img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  image-rendering: pixelated;
+}
+
+
 @media (max-width: 900px) and (orientation: landscape) {
-  .page{
+  .page {
     width: 50vw;
+  }
+
+  .slot {
+    transform: translate(clamp(0px, 0vw, 12px),
+        clamp(0px, 0.3vw, 12px));
   }
 }
