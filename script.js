@@ -1178,6 +1178,7 @@ class DigimonChart {
     this.animInterval = null;
     this.lastWidth = null;
 
+    this.evoAnimInterval = null;
     this.expandRect = document.getElementById("expand-rect");
     this.inTransition = false;
 
@@ -1189,6 +1190,11 @@ class DigimonChart {
     this.closeSound.volume = 0.5; // ajuste se quiser
     this.soundEnabled = localStorage.getItem("soundEnabled") !== "false";
     this.inContent2 = false;
+
+    this.evoIndex = 0;
+    this.evoSide = "right";
+    this.evoCenterID = null;
+    this.inEvoSelect = false;
 
     this.closeButton = document.getElementById("close-button");
 
@@ -1554,6 +1560,14 @@ class DigimonChart {
 
     document.getElementById("evo-ui").style.display = "flex";
 
+    const centerDigimon = digimonSprites[this.currentIndex];
+    this.evoCenterID = centerDigimon ? centerDigimon.id : null;
+    this.updateStats(centerDigimon || null);
+    document.getElementById("status-bar").style.display = "flex";
+
+    const centerImg = document.getElementById("center-digimon");
+    if (centerImg && centerDigimon) centerImg.src = centerDigimon.idle;
+
     this.inContent2 = true;
     this.inTransition = false;
     this.active = false;
@@ -1563,7 +1577,211 @@ class DigimonChart {
     this.createLeftEvoSlots();
     setTimeout(() => this.drawEvoLines(this.currentLayout), 50);
     setTimeout(() => this.drawPreLines(this.currentPreLayout), 50);
+setTimeout(() => {
+  this.evoSide = "right";
+  this.evoIndex = 0;
+  this.inEvoSelect = true;
+  const rightSlots = document.querySelectorAll("#evo-slots-right .evo-slot-inner");
+  const leftSlots = document.querySelectorAll("#evo-slots-left .evo-slot-inner");
+  if (rightSlots.length) {
+    this.evoSide = "right";
+    this.updateEvoCursor();
+    this._startEvoAnim("right");
+  } else if (leftSlots.length) {
+    this.evoSide = "left";
+    this.updateEvoCursor();
+    this._startEvoAnim("left");
   }
+}, 60);
+    setTimeout(() => this.scaleStatusBar(), 60);
+  }
+
+scaleStatusBar() {
+  const bar = document.getElementById("status-bar");
+  const ui = document.getElementById("evo-ui");
+  const main = document.querySelector(".left-panel");
+  if (!bar || !ui || !main) return;
+
+  bar.style.transform = "translateX(-50%) scale(1)";
+  bar.style.transformOrigin = "top center";
+
+  const uiRect = ui.getBoundingClientRect();
+  const mainRect = main.getBoundingClientRect();
+  const barRect = bar.getBoundingClientRect();
+
+  const barTop = barRect.top - uiRect.top;
+  const availableH = uiRect.height - barTop - (uiRect.height * 0.02);
+  const availableW = mainRect.width * 0.44;
+
+  const scaleH = availableH / barRect.height;
+  const scaleW = availableW / barRect.width;
+  const scale = Math.min(scaleH, scaleW, 1);
+
+  bar.style.transform = `translateX(-50%) scale(${scale})`;
+}
+
+_getSlotDigimon(side, index) {
+  const digimon = digimonSprites.find(d => d.id === this.evoCenterID);
+  if (!digimon) return null;
+  const ids = side === "right" ? digimon.evo : digimon.pre;
+  if (!ids) return null;
+  const validIDs = ids.filter(id => digimonSprites.find(d => d.id === id));
+  return digimonSprites.find(d => d.id === validIDs[index]) || null;
+}
+
+_stopEvoAnim() {
+  if (this.evoAnimInterval) {
+    clearInterval(this.evoAnimInterval);
+    this.evoAnimInterval = null;
+  }
+}
+
+_startEvoAnim(side) {
+  this._stopEvoAnim();
+  const selector = side === "right"
+    ? "#evo-slots-right .evo-slot-inner"
+    : "#evo-slots-left .evo-slot-inner";
+  const slots = document.querySelectorAll(selector);
+  const curImg = slots[this.evoIndex]?.querySelector("img");
+  const curDigimon = this._getSlotDigimon(side, this.evoIndex);
+  if (curImg && curDigimon && curDigimon.anim) {
+    let frame = true;
+    curImg.src = curDigimon.anim;
+    this.evoAnimInterval = setInterval(() => {
+      curImg.src = frame ? curDigimon.idle : curDigimon.anim;
+      frame = !frame;
+    }, 400);
+  }
+}
+
+_resetAllSlotSprites() {
+  ["#evo-slots-right", "#evo-slots-left"].forEach((sel, si) => {
+    const side = si === 0 ? "right" : "left";
+    document.querySelectorAll(`${sel} .evo-slot-inner`).forEach((s, i) => {
+      const d = this._getSlotDigimon(side, i);
+      const img = s.querySelector("img");
+      if (img && d) img.src = d.idle;
+    });
+  });
+}
+
+moveEvoCursor(index) {
+  const selector = this.evoSide === "right"
+    ? "#evo-slots-right .evo-slot-inner"
+    : "#evo-slots-left .evo-slot-inner";
+  const slots = document.querySelectorAll(selector);
+  if (!slots.length) return;
+
+  const prevImg = slots[this.evoIndex]?.querySelector("img");
+  const prevDigimon = this._getSlotDigimon(this.evoSide, this.evoIndex);
+  if (prevImg && prevDigimon) prevImg.src = prevDigimon.idle;
+
+  this.evoIndex = Math.max(0, Math.min(index, slots.length - 1));
+  this.updateEvoCursor();
+  this._startEvoAnim(this.evoSide);
+}
+
+switchEvoSide(side) {
+  const rightSlots = document.querySelectorAll("#evo-slots-right .evo-slot-inner");
+  const leftSlots = document.querySelectorAll("#evo-slots-left .evo-slot-inner");
+  if (side === "right" && !rightSlots.length) return;
+  if (side === "left" && !leftSlots.length) return;
+
+  this._stopEvoAnim();
+  this._resetAllSlotSprites();
+
+  const old = document.getElementById("evo-cursor");
+  if (old) old.remove();
+
+  const selector = side === "right"
+    ? "#evo-slots-right .evo-slot-inner"
+    : "#evo-slots-left .evo-slot-inner";
+  const slots = document.querySelectorAll(selector);
+  if (!slots.length) return;
+
+  this.evoSide = side;
+  this.evoIndex = 0;
+  this.updateEvoCursor();
+  this._startEvoAnim(side);
+  this.playMoveSound();
+}
+
+confirmEvoSlot() {
+  const selected = this._getSlotDigimon(this.evoSide, this.evoIndex);
+  if (!selected) return;
+
+  if (this.soundEnabled) {
+    const sound = this.selectSound.cloneNode();
+    sound.volume = this.selectSound.volume;
+    sound.play();
+  }
+
+  this.evoCenterID = selected.id;
+  this._stopEvoAnim();
+
+  const centerImg = document.getElementById("center-digimon");
+  if (centerImg) centerImg.src = selected.idle;
+
+  this.updateStats(selected);
+  this.clearEvoLines();
+  this.clearPreLines();
+  this.createRightEvoSlots();
+  this.createLeftEvoSlots();
+  setTimeout(() => this.drawEvoLines(this.currentLayout), 50);
+  setTimeout(() => this.drawPreLines(this.currentPreLayout), 50);
+
+this.evoIndex = 0;
+setTimeout(() => {
+  const rightSlots = document.querySelectorAll("#evo-slots-right .evo-slot-inner");
+  const leftSlots = document.querySelectorAll("#evo-slots-left .evo-slot-inner");
+  const old = document.getElementById("evo-cursor");
+  if (old) old.remove();
+  if (rightSlots.length) {
+    this.evoSide = "right";
+    this.updateEvoCursor();
+    this._startEvoAnim("right");
+  } else if (leftSlots.length) {
+    this.evoSide = "left";
+    this.updateEvoCursor();
+    this._startEvoAnim("left");
+  }
+}, 60);
+}
+
+updateEvoCursor() {
+  const selector = this.evoSide === "right"
+    ? "#evo-slots-right .evo-slot"
+    : "#evo-slots-left .evo-slot";
+  const slots = document.querySelectorAll(selector);
+  if (!slots.length) return;
+
+  let cursor = document.getElementById("evo-cursor");
+  if (!cursor) {
+    cursor = document.createElement("img");
+    cursor.id = "evo-cursor";
+    cursor.src = "images/cursor.png";
+    cursor.style.cssText = `
+      position: absolute;
+      pointer-events: none;
+      image-rendering: pixelated;
+      z-index: 30;
+    `;
+    document.getElementById("evo-ui").appendChild(cursor);
+  }
+
+  const slot = slots[this.evoIndex];
+  if (!slot) return;
+
+  const uiRect = document.getElementById("evo-ui").getBoundingClientRect();
+  const slotRect = slot.getBoundingClientRect();
+  const width = slotRect.width * 1.15;
+  const height = slotRect.height;
+
+  cursor.style.width = width + "px";
+  cursor.style.height = height + "px";
+  cursor.style.left = (slotRect.left - uiRect.left - (width - slotRect.width) / 2) + "px";
+  cursor.style.top = (slotRect.top - uiRect.top) + "px";
+}
 
   closeContent() {
 
@@ -1577,9 +1795,19 @@ class DigimonChart {
     slots.style.display = "block";
     cursor.style.display = "block";
 
+    this.inEvoSelect = false;
+    this._stopEvoAnim();
+    const evoCursor = document.getElementById("evo-cursor");
+    if (evoCursor) evoCursor.remove();
+
+    document.querySelectorAll(".evo-slot-inner").forEach(el => {
+      el.style.pointerEvents = "none";
+    });
+
     this.closeButton.style.opacity = "0";
     this.closeButton.style.pointerEvents = "none";
     this.playCloseSound();
+    document.getElementById("status-bar").style.display = "none";
     this.clearEvoLines();
     this.clearPreLines();
     this.playCollapseAnimation();
@@ -1587,12 +1815,17 @@ class DigimonChart {
   }
 
   returnToChart() {
-
+    document.getElementById("status-bar").style.display = "none";
     this.clearEvoLines();
     this.clearPreLines();
+    document.querySelectorAll(".evo-slot-inner").forEach(el => {
+      el.style.pointerEvents = "none";
+    });
     document.getElementById("evo-ui").style.display = "none";
     const slots = document.getElementById("slots-container");
     const cursor = document.getElementById("cursor");
+    const evoCursor = document.getElementById("evo-cursor");
+    if (evoCursor) evoCursor.remove();
 
     this.chart.src = "images/chart.png";
 
@@ -1601,14 +1834,14 @@ class DigimonChart {
 
     this.expandRect.style.opacity = 0;
 
+    this.inEvoSelect = false;
+    this._stopEvoAnim();
     this.inContent2 = false;
     this.active = true;
     this.closeButton.style.opacity = "0";
     this.closeButton.style.pointerEvents = "none";
 
     this.updateCursor();
-
-
   }
 
   onResize() {
@@ -1620,10 +1853,15 @@ class DigimonChart {
     this.lastWidth = rect.width;
 
     requestAnimationFrame(() => {
-      this.updateLayout();
-      this.updateCursor();
-
-    });
+  this.updateLayout();
+  this.updateCursor();
+if (this.inContent2) {
+  this.drawEvoLines(this.currentLayout);
+  this.drawPreLines(this.currentPreLayout);
+  this.scaleStatusBar();
+  this.updateEvoCursor();
+}
+});
   }
 
   onKey(e) {
@@ -1632,6 +1870,37 @@ class DigimonChart {
       this.closeContent();
       return;
     }
+if (this.inEvoSelect) {
+  const selector = this.evoSide === "right"
+    ? "#evo-slots-right .evo-slot-inner"
+    : "#evo-slots-left .evo-slot-inner";
+  const slots = document.querySelectorAll(selector);
+
+if (["ArrowUp", "w", "W"].includes(e.key)) {
+  if (slots.length && this.evoIndex > 0) {
+    this.moveEvoCursor(this.evoIndex - 1);
+    this.playMoveSound();
+  }
+}
+if (["ArrowDown", "s", "S"].includes(e.key)) {
+  if (slots.length && this.evoIndex < slots.length - 1) {
+    this.moveEvoCursor(this.evoIndex + 1);
+    this.playMoveSound();
+  }
+}
+if (["ArrowRight", "d", "D"].includes(e.key)) {
+  const rightSlots = document.querySelectorAll("#evo-slots-right .evo-slot-inner");
+  if (rightSlots.length && this.evoSide !== "right") this.switchEvoSide("right");
+}
+if (["ArrowLeft", "a", "A"].includes(e.key)) {
+  const leftSlots = document.querySelectorAll("#evo-slots-left .evo-slot-inner");
+  if (leftSlots.length && this.evoSide !== "left") this.switchEvoSide("left");
+}
+  if (e.key === "Enter") {
+    this.confirmEvoSlot();
+  }
+  return;
+}
     if (!this.active) return;
     let direction = null;
 
@@ -1675,7 +1944,7 @@ class DigimonChart {
     }
   }
   playMoveSound() {
-    if (!this.soundEnabled || !this.active) return;
+    if (!this.soundEnabled) return;
 
     const sound = this.moveSound.cloneNode();
     sound.volume = this.moveSound.volume;
@@ -1834,7 +2103,7 @@ class DigimonChart {
 
     container.innerHTML = "";
 
-    const digimon = digimonSprites[this.currentIndex];
+    const digimon = digimonSprites.find(d => d.id === this.evoCenterID) || digimonSprites[this.currentIndex];
     if (!digimon || !digimon.evo) return;
 
     const total = digimon.evo.filter(id => digimonSprites.find(d => d.id === id)).length;
@@ -1867,6 +2136,14 @@ class DigimonChart {
       }
 
       inner.appendChild(img);
+      inner.style.cursor = "pointer";
+      inner.style.pointerEvents = "auto";
+      const slotIndex = count;
+      inner.addEventListener("click", () => {
+        this.evoSide = "right";
+        this.moveEvoCursor(slotIndex);
+        this.confirmEvoSlot();
+      });
       slot.appendChild(inner);
       container.appendChild(slot);
 
@@ -1876,18 +2153,18 @@ class DigimonChart {
     setTimeout(() => this.drawEvoLines(layout), 50);
   }
 
-drawPreLines(layout) {
-  const old = document.getElementById("pre-lines");
-  if (old) old.remove();
+  drawPreLines(layout) {
+    const old = document.getElementById("pre-lines");
+    if (old) old.remove();
 
-  const center = document.querySelector(".center-slot");
-  const targets = document.querySelectorAll("#evo-slots-left .evo-slot");
+    const center = document.querySelector(".center-slot");
+    const targets = document.querySelectorAll("#evo-slots-left .evo-slot");
 
-  if (!center || targets.length === 0) return;
+    if (!center || targets.length === 0) return;
 
-  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  svg.id = "pre-lines";
-  svg.style.cssText = `
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.id = "pre-lines";
+    svg.style.cssText = `
     position: absolute;
     top: 0; left: 0;
     width: 100%;
@@ -1896,49 +2173,49 @@ drawPreLines(layout) {
     z-index: 1;
     overflow: visible;
   `;
-  document.getElementById("evo-ui").insertBefore(svg, document.getElementById("evo-ui").firstChild);
+    document.getElementById("evo-ui").insertBefore(svg, document.getElementById("evo-ui").firstChild);
 
-  const parentRect = document.getElementById("evo-ui").getBoundingClientRect();
-  const cRect = center.getBoundingClientRect();
-  const scale = parentRect.width / 936;
-  const lineSpacing = 8 * scale;
+    const parentRect = document.getElementById("evo-ui").getBoundingClientRect();
+    const cRect = center.getBoundingClientRect();
+    const scale = parentRect.width / 936;
+    const lineSpacing = 8 * scale;
 
-  targets.forEach((target, i) => {
-    const inner = target.querySelector(".evo-slot-inner");
-    const iRect = inner ? inner.getBoundingClientRect() : target.getBoundingClientRect();
-    if (iRect.width === 0) return;
+    targets.forEach((target, i) => {
+      const inner = target.querySelector(".evo-slot-inner");
+      const iRect = inner ? inner.getBoundingClientRect() : target.getBoundingClientRect();
+      if (iRect.width === 0) return;
 
-    const cfg = layout && layout.lines && layout.lines[i] ? layout.lines[i] : { h: 60, d: 0 };
+      const cfg = layout && layout.lines && layout.lines[i] ? layout.lines[i] : { h: 60, d: 0 };
 
-    const startX = cRect.left - parentRect.left;
-    const startY = (cRect.top + cRect.height / 2 - (targets.length / 2 * lineSpacing) + i * lineSpacing) - parentRect.top;
-    const endX = iRect.right - parentRect.left;
-    const endY = iRect.top + iRect.height / 2 - parentRect.top;
+      const startX = cRect.left - parentRect.left;
+      const startY = (cRect.top + cRect.height / 2 - (targets.length / 2 * lineSpacing) + i * lineSpacing) - parentRect.top;
+      const endX = iRect.right - parentRect.left;
+      const endY = iRect.top + iRect.height / 2 - parentRect.top;
 
-    const midX = startX - cfg.h * scale;
-    const diagX = midX - cfg.d * scale;
+      const midX = startX - cfg.h * scale;
+      const diagX = midX - cfg.d * scale;
 
-    const points = `${startX},${startY} ${midX},${startY} ${diagX},${endY} ${endX},${endY}`;
+      const points = `${startX},${startY} ${midX},${startY} ${diagX},${endY} ${endX},${endY}`;
 
-    const outline = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
-    outline.setAttribute("points", points);
-    outline.setAttribute("stroke", "#DB6500");
-    outline.setAttribute("stroke-width", 8 * scale);
-    outline.setAttribute("fill", "none");
-    outline.setAttribute("stroke-linecap", "round");
-    outline.setAttribute("stroke-linejoin", "miter");
-    svg.appendChild(outline);
+      const outline = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+      outline.setAttribute("points", points);
+      outline.setAttribute("stroke", "#DB6500");
+      outline.setAttribute("stroke-width", 8 * scale);
+      outline.setAttribute("fill", "none");
+      outline.setAttribute("stroke-linecap", "round");
+      outline.setAttribute("stroke-linejoin", "miter");
+      svg.appendChild(outline);
 
-    const line = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
-    line.setAttribute("points", points);
-    line.setAttribute("stroke", "#E39407");
-    line.setAttribute("stroke-width", 4 * scale);
-    line.setAttribute("fill", "none");
-    line.setAttribute("stroke-linecap", "round");
-    line.setAttribute("stroke-linejoin", "miter");
-    svg.appendChild(line);
-  });
-}
+      const line = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+      line.setAttribute("points", points);
+      line.setAttribute("stroke", "#E39407");
+      line.setAttribute("stroke-width", 4 * scale);
+      line.setAttribute("fill", "none");
+      line.setAttribute("stroke-linecap", "round");
+      line.setAttribute("stroke-linejoin", "miter");
+      svg.appendChild(line);
+    });
+  }
 
   clearPreLines() {
     const svg = document.getElementById("pre-lines");
@@ -1946,45 +2223,45 @@ drawPreLines(layout) {
   }
 
   createLeftEvoSlots() {
-const preLayouts = {
-  1: {
-    gap: 0, offsetX: 5,
-    lines: [{ h: 300, offsetX: 7 }]
-  },
-  2: {
-    gap: 15, offsetX: 5,
-    lines: [{ h: 170, d: 30, offsetX: 7 },
-            { h: 170, d: 30, offsetX: 7 }]
-  },
-  3: {
-    gap: 15, offsetX: 5,
-    lines: [{ h: 70, d: 100, offsetX: 31 },
-            { h: 300, offsetX: 7 },
-            { h: 70, d: 100, offsetX: 31 }]
-  },
-  4: {
-    gap: 15, offsetX: 5,
-    lines: [{ h: 70, d: 100, offsetX: 31 },
-            { h: 170, d: 30, offsetX: 7 },
-            { h: 170, d: 30, offsetX: 7 },
-            { h: 70, d: 100, offsetX: 31 }]
-  },
-  5: {
-    gap: 15, offsetX: 5,
-    lines: [{ h: 0, d: 160, offsetX: 55 },
-            { h: 70, d: 100, offsetX: 31 },
-            { h: 300, offsetX: 7 },
-            { h: 70, d: 100, offsetX: 31 },
-            { h: 0, d: 160, offsetX: 55 }]
-  }
-};
+    const preLayouts = {
+      1: {
+        gap: 0, offsetX: 5,
+        lines: [{ h: 300, offsetX: 7 }]
+      },
+      2: {
+        gap: 15, offsetX: 5,
+        lines: [{ h: 170, d: 30, offsetX: 7 },
+        { h: 170, d: 30, offsetX: 7 }]
+      },
+      3: {
+        gap: 15, offsetX: 5,
+        lines: [{ h: 70, d: 100, offsetX: 31 },
+        { h: 300, offsetX: 7 },
+        { h: 70, d: 100, offsetX: 31 }]
+      },
+      4: {
+        gap: 15, offsetX: 5,
+        lines: [{ h: 70, d: 100, offsetX: 31 },
+        { h: 170, d: 30, offsetX: 7 },
+        { h: 170, d: 30, offsetX: 7 },
+        { h: 70, d: 100, offsetX: 31 }]
+      },
+      5: {
+        gap: 15, offsetX: 5,
+        lines: [{ h: 0, d: 160, offsetX: 55 },
+        { h: 70, d: 100, offsetX: 31 },
+        { h: 300, offsetX: 7 },
+        { h: 70, d: 100, offsetX: 31 },
+        { h: 0, d: 160, offsetX: 55 }]
+      }
+    };
 
     const container = document.getElementById("evo-slots-left");
     if (!container) return;
 
     container.innerHTML = "";
 
-    const digimon = digimonSprites[this.currentIndex];
+    const digimon = digimonSprites.find(d => d.id === this.evoCenterID) || digimonSprites[this.currentIndex];
     if (!digimon || !digimon.pre) return;
 
     const total = digimon.pre.filter(id => digimonSprites.find(d => d.id === id)).length;
@@ -2020,6 +2297,14 @@ const preLayouts = {
       }
 
       inner.appendChild(img);
+      inner.style.cursor = "pointer";
+      inner.style.pointerEvents = "auto";
+      const slotIndex = count;
+      inner.addEventListener("click", () => {
+        this.evoSide = "left";
+        this.moveEvoCursor(slotIndex);
+        this.confirmEvoSlot();
+      });
       slot.appendChild(inner);
       container.appendChild(slot);
 
@@ -2027,6 +2312,26 @@ const preLayouts = {
     });
 
     setTimeout(() => this.drawPreLines(layout), 50);
+  }
+
+  updateStats(digimon) {
+    const d = digimon || { hp: 0, mp: 0, off: 0, def: 0, spd: 0, brn: 0 };
+
+    const stats = [
+      { id: 'hp', val: d.hp, max: 9999 },
+      { id: 'mp', val: d.mp, max: 9999 },
+      { id: 'off', val: d.off, max: 999 },
+      { id: 'def', val: d.def, max: 999 },
+      { id: 'spd', val: d.spd, max: 999 },
+      { id: 'brn', val: d.brn, max: 999 },
+    ];
+
+    stats.forEach(s => {
+      const num = document.getElementById(`stat-${s.id}`);
+      const fill = document.getElementById(`fill-${s.id}`);
+      if (num)  num.textContent  = String(s.val);
+      if (fill) fill.style.width = `${(s.val / s.max) * 100}%`;
+    });
   }
 }
 window.chartSystem = new DigimonChart();
