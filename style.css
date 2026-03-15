@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background: url("images/fundo.png") repeat;
+  background: url("images/fundo.webp") repeat;
   background-size: 150px;
 
   display: flex;
@@ -594,9 +594,11 @@ body {
 @font-face {
   font-family: "Digimon";
   src: url("DwFont.otf");
+  font-display: swap;
 }
 
 @font-face {
   font-family: "DwFont2";
   src: url("DwFont2.ttf");
+  font-display: swap;
 }

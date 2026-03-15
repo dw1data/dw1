@@ -1474,8 +1474,8 @@ class DigimonChart {
 
     const updateIcon = () => {
       icon.src = this.soundEnabled
-        ? "images/som.png"
-        : "images/som2.png";
+        ? "images/som.webp"
+        : "images/som2.webp";
     };
 
     updateIcon();
@@ -1710,7 +1710,7 @@ class DigimonChart {
     slots.style.display = "none";
     cursor.style.display = "none";
 
-    this.chart.src = "images/conteudo2.png";
+    this.chart.src = "images/conteudo2.webp";
 
     document.getElementById("evo-ui").style.display = "flex";
 
@@ -1872,7 +1872,7 @@ class DigimonChart {
 
     if (d.feliz !== undefined) {
       const icon = document.getElementById("mood-icon-feliz");
-      icon.src = `images/feliz${d.feliz}.png`;
+      icon.src = `images/feliz${d.feliz}.webp`;
       icon.style.display = "block";
       felizBlock.style.display = "flex";
     } else {
@@ -1881,7 +1881,7 @@ class DigimonChart {
 
     if (d.disc !== undefined) {
       const icon = document.getElementById("mood-icon-disc");
-      icon.src = `images/disc${d.disc}.png`;
+      icon.src = `images/disc${d.disc}.webp`;
       icon.style.display = "block";
       discBlock.style.display = "flex";
     } else {
@@ -2084,7 +2084,7 @@ class DigimonChart {
     if (!cursor) {
       cursor = document.createElement("img");
       cursor.id = "evo-cursor";
-      cursor.src = "images/cursor.png";
+      cursor.src = "images/cursor.webp";
       cursor.style.cssText = `
       position: absolute;
       pointer-events: none;
@@ -2112,7 +2112,7 @@ class DigimonChart {
 
     if (!this.inContent2 || this.inTransition) return;
     document.getElementById("evo-ui").style.display = "none";
-    this.chart.src = "images/chart.png";
+    this.chart.src = "images/chart.webp";
 
     const slots = document.getElementById("slots-container");
     const cursor = document.getElementById("cursor");
@@ -2158,7 +2158,7 @@ class DigimonChart {
     const evoCursor = document.getElementById("evo-cursor");
     if (evoCursor) evoCursor.remove();
 
-    this.chart.src = "images/chart.png";
+    this.chart.src = "images/chart.webp";
 
     slots.style.display = "block";
     cursor.style.display = "block";
@@ -2701,11 +2701,11 @@ function setupMenuSystem() {
 
       buttons.forEach(b => {
         b.classList.remove("active");
-        b.querySelector("img").src = "images/menu_escuro.png";
+        b.querySelector("img").src = "images/menu_escuro.webp";
       });
 
       btn.classList.add("active");
-      btn.querySelector("img").src = "images/menu_claro.png";
+      btn.querySelector("img").src = "images/menu_claro.webp";
 
       const page = btn.dataset.page;
 
@@ -2713,7 +2713,7 @@ function setupMenuSystem() {
 
         window.chartSystem.active = true;
 
-        chart.src = "images/chart.png";
+        chart.src = "images/chart.webp";
         slots.style.display = "block";
         cursor.style.display = "block";
         detoContent.style.display = "none";
@@ -2725,7 +2725,7 @@ function setupMenuSystem() {
 
         slots.style.display = "none";
         cursor.style.display = "none";
-        chart.src = "images/conteudo.png";
+        chart.src = "images/conteudo.webp";
         detoContent.style.display = "block";
 
         if (window.chartSystem) {
