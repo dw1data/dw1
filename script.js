@@ -1,5 +1,5 @@
 /* =========================
-   DADOS (TEM QUE VIR PRIMEIRO)
+   DADOS 
 ========================= */
 
 const slotsData = [
@@ -83,6 +83,8 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 0,
+    tecs: 0,
+    lutas: 0,
     pre: ["verde"],
     evo: ["koromon"]
   },
@@ -99,6 +101,8 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 0,
+    tecs: 0,
+    lutas: 0,
     pre: ["laranja"],
     evo: ["tokomon"]
   },
@@ -115,6 +119,8 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 0,
+    tecs: 0,
+    lutas: 0,
     pre: ["azul"],
     evo: ["tsunomon"]
   },
@@ -131,6 +137,8 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 0,
+    tecs: 0,
+    lutas: 0,
     pre: ["rosa"],
     evo: ["tanemon"]
   },
@@ -147,6 +155,8 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 0,
+    tecs: 0,
+    lutas: 0,
     pre: ["botamon"],
     evo: ["agumon", "gabumon"]
   },
@@ -163,6 +173,8 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 0,
+    tecs: 0,
+    lutas: 0,
     pre: ["poyomon"],
     evo: ["patamon", "piyomon"]
   },
@@ -179,6 +191,8 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 0,
+    tecs: 0,
+    lutas: 0,
     pre: ["punimon"],
     evo: ["elecmon", "penguinmon"]
   },
@@ -195,6 +209,8 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 0,
+    tecs: 0,
+    lutas: 0,
     pre: ["yuramon"],
     evo: ["palmon", "betamon"]
   },
@@ -211,6 +227,8 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 15,
+    tecs: 0,
+    lutas: 0,
     pre: ["koromon"],
     evo: ["greymon", "meramon", "birdramon", "centarumon", "monochromon", "tyrannomon"]
   },
@@ -227,6 +245,8 @@ const digimonSprites = [
     brn: 10,
     desc: 0,
     peso: 15,
+    tecs: 0,
+    lutas: 2,
     pre: ["koromon"],
     evo: ["centarumon", "monochromon", "drimogemon", "tyrannomon", "ogremon", "garurumon"]
   },
@@ -243,6 +263,8 @@ const digimonSprites = [
     brn: 10,
     desc: 0,
     peso: 15,
+    tecs: 0,
+    lutas: 2,
     pre: ["tokomon"],
     evo: ["drimogemon", "tyrannomon", "ogremon", "leomon", "angemon", "unimon"]
   },
@@ -259,6 +281,8 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 15,
+    tecs: 0,
+    lutas: 2,
     pre: ["tsunomon"],
     evo: ["leomon", "angemon", "bakemon", "kokatorimon"]
   },
@@ -275,6 +299,8 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 15,
+    tecs: 0,
+    lutas: 2,
     pre: ["tokomon"],
     evo: ["birdramon", "airdramon", "kokatorimon", "unimon", "kabuterimon"]
   },
@@ -291,6 +317,9 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 0,
+    tecs: 0,
+    lutas: 0,
+    info: "50% de chances de digievoluir dormindo em Kunemon's Bed com qualquer digimon In-Training.",
     pre: [""],
     evo: ["bakemon", "kabuterimon", "kuwagamon", "vegiemon"]
   },
@@ -307,6 +336,8 @@ const digimonSprites = [
     brn: 10,
     desc: 0,
     peso: 15,
+    tecs: 0,
+    lutas: 2,
     pre: ["tanemon"],
     evo: ["kuwagamon", "vegiemon", "ninjamon", "whamon", "coelamon"]
   },
@@ -323,6 +354,8 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 15,
+    tecs: 0,
+    lutas: 2,
     pre: ["tanemon"],
     evo: ["seadramon", "whamon", "shellmon", "coelamon"]
   },
@@ -332,13 +365,15 @@ const digimonSprites = [
     idle: "sprites/penguinmon.webp",
     anim: "sprites/penguinmon2.webp",
     hp: 0,
-    mp: 0,
+    mp: 10,
     off: 0,
-    def: 0,
+    def: 1,
     spd: 0,
-    brn: 0,
+    brn: 1,
     desc: 0,
-    peso: 0,
+    peso: 15,
+    tecs: 0,
+    lutas: 2,
     pre: ["tsunomon"],
     evo: ["whamon", "shellmon", "garurumon", "frigimon", "mojyamon"]
   },
@@ -355,6 +390,9 @@ const digimonSprites = [
     brn: 100,
     desc: 1,
     peso: 30,
+    tecs: 35,
+    lutas: 0,
+    disc: 90,
     pre: ["agumon"],
     evo: ["metalgreymon", "skullgreymon"]
   },
@@ -371,6 +409,8 @@ const digimonSprites = [
     brn: 100,
     desc: 3,
     peso: 40,
+    tecs: 35,
+    lutas: 5,
     pre: ["agumon", "gabumon"],
     evo: ["metalgreymon", "metalmamemon"]
   },
@@ -387,6 +427,8 @@ const digimonSprites = [
     brn: 0,
     desc: 5,
     peso: 30,
+    tecs: 35,
+    lutas: 15,
     pre: ["gabumon", "patamon"],
     evo: ["andromon", "giromon"]
   },
@@ -403,6 +445,9 @@ const digimonSprites = [
     brn: 100,
     desc: 1,
     peso: 30,
+    tecs: 35,
+    lutas: 0,
+    disc: 90,
     pre: ["piyomon"],
     evo: ["megadramon", "phoenixmon"]
   },
@@ -419,6 +464,8 @@ const digimonSprites = [
     brn: 0,
     desc: 5,
     peso: 30,
+    tecs: 28,
+    lutas: 0,
     pre: ["kunemon", "palmon"],
     evo: ["hkabuterimon", "piximon"]
   },
@@ -435,6 +482,9 @@ const digimonSprites = [
     brn: 100,
     desc: 5,
     peso: 40,
+    tecs: 28,
+    lutas: 0,
+    disc: 60,
     pre: ["palmon", "betamon", "penguinmon"],
     evo: ["megaseadramon", "mamemon"]
   },
@@ -451,6 +501,9 @@ const digimonSprites = [
     brn: 100,
     desc: 5,
     peso: 30,
+    tecs: 28,
+    lutas: 0,
+    feliz: 50,
     pre: ["penguinmon"],
     evo: ["metalmamemon", "mamemon"]
   },
@@ -467,6 +520,11 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 0,
+    tecs: 0,
+    lutas: 0,
+    feliz: -100,
+    disc: 0,
+    info: "Brigue com qualquer digimon Rookie quando a barra de felicidade e disciplina estiver zerada.",
     pre: [""],
     evo: ["digitamamon"]
   },
@@ -483,6 +541,8 @@ const digimonSprites = [
     brn: 0,
     desc: 5,
     peso: 20,
+    tecs: 28,
+    lutas: 10,
     pre: ["agumon"],
     evo: ["metalgreymon", "andromon"]
   },
@@ -499,6 +559,9 @@ const digimonSprites = [
     brn: 0,
     desc: 3,
     peso: 40,
+    tecs: 28,
+    lutas: 0,
+    feliz: 50,
     pre: ["gabumon", "patamon"],
     evo: ["metalgreymon"]
   },
@@ -515,6 +578,8 @@ const digimonSprites = [
     brn: 100,
     desc: 1,
     peso: 20,
+    tecs: 35,
+    lutas: 10,
     pre: ["patamon", "elecmon"],
     evo: ["andromon", "mamemon"]
   },
@@ -531,6 +596,8 @@ const digimonSprites = [
     brn: 0,
     desc: 3,
     peso: 30,
+    tecs: 28,
+    lutas: 0,
     pre: ["elecmon", "piyomon"],
     evo: ["phoenixmon", "piximon"]
   },
@@ -547,6 +614,9 @@ const digimonSprites = [
     brn: 0,
     desc: 5,
     peso: 10,
+    tecs: 21,
+    lutas: 0,
+    feliz: 50,
     pre: ["kunemon", "palmon"],
     evo: ["piximon"]
   },
@@ -563,6 +633,8 @@ const digimonSprites = [
     brn: 0,
     desc: 5,
     peso: 40,
+    tecs: 35,
+    lutas: 0,
     pre: ["betamon", "penguinmon"],
     evo: ["hkabuterimon", "megaseadramon"]
   },
@@ -579,6 +651,8 @@ const digimonSprites = [
     brn: 0,
     desc: 5,
     peso: 20,
+    tecs: 28,
+    lutas: 5,
     pre: ["penguinmon"],
     evo: ["skullgreymon", "mamemon"]
   },
@@ -595,6 +669,8 @@ const digimonSprites = [
     brn: 0,
     desc: 3,
     peso: 20,
+    tecs: 35,
+    lutas: 0,
     pre: ["agumon", "piyomon"],
     evo: ["phoenixmon"]
   },
@@ -611,6 +687,8 @@ const digimonSprites = [
     brn: 0,
     desc: 5,
     peso: 30,
+    tecs: 28,
+    lutas: 5,
     pre: ["agumon", "gabumon", "patamon"],
     evo: ["metalgreymon", "megadramon"]
   },
@@ -627,6 +705,8 @@ const digimonSprites = [
     brn: 100,
     desc: 0,
     peso: 20,
+    tecs: 35,
+    lutas: 0,
     pre: ["patamon", "elecmon"],
     evo: ["andromon", "phoenixmon"]
   },
@@ -643,6 +723,8 @@ const digimonSprites = [
     brn: 0,
     desc: 3,
     peso: 30,
+    tecs: 35,
+    lutas: 10,
     pre: ["patamon", "piyomon"],
     evo: ["giromon", "phoenixmon"]
   },
@@ -659,6 +741,8 @@ const digimonSprites = [
     brn: 0,
     desc: 1,
     peso: 10,
+    tecs: 35,
+    lutas: 15,
     pre: ["palmon"],
     evo: ["piximon", "metalmamemon", "mamemon"]
   },
@@ -675,6 +759,8 @@ const digimonSprites = [
     brn: 0,
     desc: 3,
     peso: 30,
+    tecs: 35,
+    lutas: 5,
     pre: ["palmon", "betamon"],
     evo: ["megaseadramon"]
   },
@@ -691,6 +777,9 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 0,
+    tecs: 0,
+    lutas: 0,
+    info: "Quando o tempo limite para digievoluir chega ao fim, qualquer Rookie digimon digievolui para Numemon caso nao tenha alcançado nenhuma outra condiçao de digievoluçao.",
     pre: [""],
     evo: ["monzaemon"]
   },
@@ -707,6 +796,9 @@ const digimonSprites = [
     brn: 100,
     desc: 3,
     peso: 30,
+    tecs: 28,
+    lutas: 0,
+    disc: 60,
     pre: ["agumon", "gabumon"],
     evo: ["andromon", "giromon"]
   },
@@ -723,6 +815,10 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 0,
+    tecs: 0,
+    lutas: 0,
+    disc: 50,
+    info: "Angemon tem 50% de chances de digievoluir para Devimon apos perder uma vida com 50% ou menos de disciplina.",
     pre: [""],
     evo: ["skullgryemon", "megadramon"]
   },
@@ -739,6 +835,9 @@ const digimonSprites = [
     brn: 0,
     desc: 3,
     peso: 20,
+    tecs: 28,
+    lutas: 0,
+    feliz: 50,
     pre: ["elecmon", "kunemon"],
     evo: ["skullgreymon", "giromon"]
   },
@@ -755,6 +854,8 @@ const digimonSprites = [
     brn: 0,
     desc: 1,
     peso: 30,
+    tecs: 35,
+    lutas: 0,
     pre: ["piyomon", "kunemon"],
     evo: ["hkabuterimon", "metalmamemon"]
   },
@@ -771,6 +872,8 @@ const digimonSprites = [
     brn: 0,
     desc: 3,
     peso: 30,
+    tecs: 28,
+    lutas: 5,
     pre: ["betamon"],
     evo: ["megadramon", "megaseadramon"]
   },
@@ -787,6 +890,9 @@ const digimonSprites = [
     brn: 0,
     desc: 1,
     peso: 30,
+    tecs: 28,
+    lutas: 0,
+    disc: 90,
     pre: ["gabumon", "penguinmon"],
     evo: ["skullgreymon", "megaseadramon"]
   },
@@ -803,6 +909,9 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 0,
+    tecs: 0,
+    lutas: 0,
+    info: "Cague no chao 16 vezes com qualquer digimon.",
     pre: [""],
     evo: ["etemon"]
   },
@@ -819,6 +928,9 @@ const digimonSprites = [
     brn: 300,
     desc: 10,
     peso: 65,
+    tecs: 30,
+    lutas: 30,
+    disc: 95,
     pre: ["greymon", "meramon", "monochromon", "drimogemon", "tyrannomon"],
     evo: [""]
   },
@@ -835,6 +947,8 @@ const digimonSprites = [
     brn: 500,
     desc: 10,
     peso: 30,
+    tecs: 45,
+    lutas: 40,
     pre: ["greymon", "devimon", "bakemon", "garurumon", "mojyamon"],
     evo: [""]
   },
@@ -851,6 +965,9 @@ const digimonSprites = [
     brn: 400,
     desc: 15,
     peso: 5,
+    tecs: 35,
+    lutas: 100,
+    feliz: 95,
     pre: ["centarumon", "ogremon", "bakemon", "unimon"],
     evo: [""]
   },
@@ -867,6 +984,8 @@ const digimonSprites = [
     brn: 0,
     desc: 5,
     peso: 55,
+    tecs: 40,
+    lutas: 0,
     pre: ["kabuterimon", "kuwagamon", "shellmon"],
     evo: [""]
   },
@@ -883,6 +1002,9 @@ const digimonSprites = [
     brn: 400,
     desc: 15,
     peso: 10,
+    tecs: 30,
+    lutas: 0,
+    feliz: 95,
     pre: ["monochromon", "kabuterimon", "ninjamon", "frigimon"],
     evo: [""]
   },
@@ -899,6 +1021,8 @@ const digimonSprites = [
     brn: 400,
     desc: 5,
     peso: 30,
+    tecs: 40,
+    lutas: 0,
     pre: ["seadramon", "whamon", "shellmon", "coelamon", "garurumon"],
     evo: [""]
   },
@@ -915,6 +1039,9 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 0,
+    tecs: 0,
+    lutas: 0,
+    info: "Elogie qualquer digimon Champion apos 240 horas com ele e quando chegar a 360 horas ele vai ter 50% de chances de digievoluir.",
     pre: [""],
     evo: [""]
   },
@@ -931,6 +1058,8 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 0,
+    tecs: 49,
+    lutas: 50,
     pre: ["sukamon"],
     evo: [""]
   },
@@ -947,6 +1076,9 @@ const digimonSprites = [
     brn: 400,
     desc: 5,
     peso: 40,
+    tecs: 30,
+    lutas: 30,
+    disc: 95,
     pre: ["meramon", "centarumon", "ogremon", "leomon", "angemon"],
     evo: [""]
   },
@@ -963,6 +1095,8 @@ const digimonSprites = [
     brn: 400,
     desc: 10,
     peso: 55,
+    tecs: 30,
+    lutas: 30,
     pre: ["tyrannomon", "devimon", "airdramon", "seadramon"],
     evo: [""]
   },
@@ -979,6 +1113,9 @@ const digimonSprites = [
     brn: 600,
     desc: 3,
     peso: 30,
+    tecs: 40,
+    lutas: 0,
+    disc: 100,
     pre: ["birdramon", "angemon", "airdramon", "kokatorimon", "unimon"],
     evo: [""]
   },
@@ -995,6 +1132,9 @@ const digimonSprites = [
     brn: 400,
     desc: 15,
     peso: 5,
+    tecs: 25,
+    lutas: 0,
+    feliz: 95,
     pre: ["kokatorimon", "kuwagamon", "vegiemon", "ninjamon"],
     evo: [""]
   },
@@ -1011,6 +1151,9 @@ const digimonSprites = [
     brn: 400,
     desc: 15,
     peso: 5,
+    tecs: 25,
+    lutas: 0,
+    feliz: 90,
     pre: ["leomon", "ninjamon", "whamon", "frigimon", "mojyamon"],
     evo: [""]
   },
@@ -1027,6 +1170,8 @@ const digimonSprites = [
     brn: 300,
     desc: 0,
     peso: 40,
+    tecs: 49,
+    lutas: 50,
     pre: ["numemon"],
     evo: [""]
   },
@@ -1043,6 +1188,8 @@ const digimonSprites = [
     brn: 300,
     desc: 0,
     peso: 10,
+    tecs: 49,
+    lutas: 100,
     pre: ["nanimon"],
     evo: [""]
   },
@@ -1059,6 +1206,9 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 0,
+    tecs: 0,
+    lutas: 0,
+    info: "Digievolui apenas com cheats usando o item Noble Mane.",
     pre: [""],
     evo: [""]
   },
@@ -1075,6 +1225,9 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 0,
+    tecs: 0,
+    lutas: 0,
+    info: "Digievolui apenas com cheats usando o item Giga Hand.",
     pre: [""],
     evo: [""]
   },
@@ -1091,6 +1244,9 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 0,
+    tecs: 0,
+    lutas: 0,
+    info: "Digievolui apenas com cheats usando o item Metal Banana.",
     pre: [""],
     evo: [""]
   },
@@ -1108,6 +1264,8 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 0,
+    tecs: 0,
+    lutas: 0,
     pre: [""],
     evo: ["botamon"]
   },
@@ -1124,6 +1282,8 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 0,
+    tecs: 0,
+    lutas: 0,
     pre: [""],
     evo: ["punimon"]
   },
@@ -1140,6 +1300,8 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 0,
+    tecs: 0,
+    lutas: 0,
     pre: [""],
     evo: ["poyomon"]
   },
@@ -1156,6 +1318,8 @@ const digimonSprites = [
     brn: 0,
     desc: 0,
     peso: 0,
+    tecs: 0,
+    lutas: 0,
     pre: [""],
     evo: ["yuramon"]
   },
@@ -1183,11 +1347,11 @@ class DigimonChart {
     this.inTransition = false;
 
     this.moveSound = new Audio("sounds/blop.ogg");
-    this.moveSound.volume = 0.4; // ajuste se quiser
+    this.moveSound.volume = 0.4;
     this.selectSound = new Audio("sounds/click.ogg");
-    this.selectSound.volume = 0.5; // ajuste se quiser
+    this.selectSound.volume = 0.5;
     this.closeSound = new Audio("sounds/close.ogg");
-    this.closeSound.volume = 0.5; // ajuste se quiser
+    this.closeSound.volume = 0.5;
     this.soundEnabled = localStorage.getItem("soundEnabled") !== "false";
     this.inContent2 = false;
 
@@ -1286,7 +1450,7 @@ class DigimonChart {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
         this.onResize();
-      }, 50);
+      }, 150);
     });
 
     document.addEventListener("keydown", (e) => this.onKey(e));
@@ -1365,17 +1529,11 @@ class DigimonChart {
   }
 
   updateCenterDigimon() {
-    const digimon = digimonSprites[this.currentIndex];
-
-    this.createRightEvoSlots();
-    const img = document.getElementById("center-digimon");
-
     const sprite = digimonSprites[this.currentIndex];
-
     if (!sprite) return;
 
+    const img = document.getElementById("center-digimon");
     img.src = sprite.idle;
-
   }
 
   updateLayout() {
@@ -1482,8 +1640,6 @@ class DigimonChart {
     expand.style.width = "0px";
     expand.style.height = "0px";
     expand.style.opacity = "1";
-
-    /* força render */
     expand.offsetHeight;
 
     expand.style.transition =
@@ -1496,7 +1652,7 @@ class DigimonChart {
 
     setTimeout(() => {
 
-      this.expandRect.style.opacity = "0";   // faz o retângulo sumir
+      this.expandRect.style.opacity = "0";
       this.openContent2();
 
     }, 200);
@@ -1526,8 +1682,6 @@ class DigimonChart {
     expand.style.width = chartRect.width + "px";
     expand.style.height = chartRect.height + "px";
     expand.style.opacity = "1";
-
-    /* força render */
     expand.offsetHeight;
 
     expand.style.transition =
@@ -1551,7 +1705,6 @@ class DigimonChart {
   openContent2() {
 
     const slots = document.getElementById("slots-container");
-    document.getElementById("evo-ui").style.display = "flex";
     const cursor = document.getElementById("cursor");
 
     slots.style.display = "none";
@@ -1564,7 +1717,11 @@ class DigimonChart {
     const centerDigimon = digimonSprites[this.currentIndex];
     this.evoCenterID = centerDigimon ? centerDigimon.id : null;
     this.updateStats(centerDigimon || null);
+    this.updateInfo(centerDigimon || null);
+    this.currentDigimon = centerDigimon || null;
+    this.updateInfoText(centerDigimon || null);
     document.getElementById("status-bar").style.display = "flex";
+    document.getElementById("info-bar").style.display = "grid";
 
     const centerImg = document.getElementById("center-digimon");
     if (centerImg && centerDigimon) centerImg.src = centerDigimon.idle;
@@ -1594,7 +1751,12 @@ class DigimonChart {
         this._startEvoAnim("left");
       }
     }, 60);
-    setTimeout(() => this.scaleStatusBar(), 60);
+    setTimeout(() => {
+      this.scaleStatusBar();
+      this.scaleInfoBar();
+      this.updateMood(centerDigimon || null);
+      this.scaleMoodBar();
+    }, 60);
   }
 
   scaleStatusBar() {
@@ -1619,6 +1781,163 @@ class DigimonChart {
     const scale = Math.min(scaleH, scaleW, 1);
 
     bar.style.transform = `translateX(-50%) scale(${scale})`;
+  }
+
+  updateInfo(digimon) {
+    const d = digimon || { desc: 0, peso: 0, lutas: 0, tecs: 0 };
+    document.getElementById("info-desc").textContent = String(d.desc ?? 0);
+    document.getElementById("info-peso").textContent = String(d.peso ?? 0);
+    document.getElementById("info-lutas").textContent = String(d.lutas ?? 0);
+    document.getElementById("info-tecs").textContent = String(d.tecs ?? 0);
+  }
+
+  updateInfoText(digimon) {
+    const el = document.getElementById("evo-info-text");
+    if (!el) return;
+
+    if (digimon && digimon.info) {
+      el.textContent = digimon.info;
+      el.style.display = "flex";
+      this.fitInfoText(el);
+    } else {
+      el.style.display = "none";
+      el.textContent = "";
+    }
+  }
+
+  fitInfoText(el) {
+    const parent = el.parentElement;
+    if (!parent) return;
+
+    const maxH = parent.clientHeight;
+
+    el.style.fontSize = "1px";
+    void el.offsetWidth;
+
+    let min = 1;
+    let max = 45;
+    let best = 1;
+
+    while (min <= max) {
+      const mid = Math.floor((min + max) / 2);
+      el.style.fontSize = mid + "px";
+      void el.offsetWidth;
+
+      if (el.scrollHeight <= maxH) {
+        best = mid;
+        min = mid + 1;
+      } else {
+        max = mid - 1;
+      }
+    }
+
+    el.style.fontSize = best + "px";
+  }
+
+  scaleInfoBar() {
+    const bar = document.getElementById("info-bar");
+    const ui = document.getElementById("evo-ui");
+    const leftBox = document.querySelector(".evo-box");
+    if (!bar || !ui || !leftBox) return;
+
+    bar.style.transform = "scale(1)";
+
+    const uiRect = ui.getBoundingClientRect();
+    const leftRect = leftBox.getBoundingClientRect();
+    const barRect = bar.getBoundingClientRect();
+
+    // posiciona abaixo do painel esquerdo, alinhado à esquerda dele
+    const targetLeft = leftRect.left - uiRect.left;
+    const targetTop = leftRect.bottom - uiRect.top + (uiRect.height * 0.01);
+
+    bar.style.left = targetLeft + "px";
+    bar.style.top = targetTop + "px";
+
+    const availableW = leftRect.width;
+    const availableH = uiRect.bottom - leftRect.bottom - (uiRect.height * 0.02);
+
+    const scaleW = availableW / barRect.width;
+    const scaleH = availableH / barRect.height;
+    const scale = Math.min(scaleW, scaleH, 1);
+
+    bar.style.transform = `scale(${scale})`;
+  }
+
+  updateMood(digimon) {
+    const d = digimon || {};
+
+    const moodBar = document.getElementById("mood-bar");
+    const felizBlock = document.getElementById("mood-feliz");
+    const discBlock = document.getElementById("mood-disc");
+
+    if (d.feliz !== undefined) {
+      const icon = document.getElementById("mood-icon-feliz");
+      icon.src = `images/feliz${d.feliz}.png`;
+      icon.style.display = "block";
+      felizBlock.style.display = "flex";
+    } else {
+      felizBlock.style.display = "none";
+    }
+
+    if (d.disc !== undefined) {
+      const icon = document.getElementById("mood-icon-disc");
+      icon.src = `images/disc${d.disc}.png`;
+      icon.style.display = "block";
+      discBlock.style.display = "flex";
+    } else {
+      discBlock.style.display = "none";
+    }
+
+    if (d.feliz !== undefined || d.disc !== undefined) {
+      moodBar.style.display = "flex";
+    } else {
+      moodBar.style.display = "none";
+    }
+  }
+
+  scaleMoodBar() {
+    const bar = document.getElementById("mood-bar");
+    const ui = document.getElementById("evo-ui");
+    const rightBox = document.querySelectorAll(".evo-box")[1];
+    if (!bar || !ui || !rightBox) return;
+
+    const imgs = bar.querySelectorAll("img");
+    const pending = [...imgs].filter(img => !img.complete);
+
+    if (pending.length > 0) {
+      Promise.all(pending.map(img => new Promise(res => {
+        img.onload = res;
+        img.onerror = res;
+      }))).then(() => this._doScaleMoodBar());
+    } else {
+      this._doScaleMoodBar();
+    }
+  }
+
+  _doScaleMoodBar() {
+    const bar = document.getElementById("mood-bar");
+    const ui = document.getElementById("evo-ui");
+    const rightBox = document.querySelectorAll(".evo-box")[1];
+
+    bar.style.transform = "scale(1)";
+    bar.style.transformOrigin = "top left";
+    void bar.offsetWidth;
+
+    const uiRect = ui.getBoundingClientRect();
+    const rightRect = rightBox.getBoundingClientRect();
+    const barRect = bar.getBoundingClientRect();
+
+    bar.style.left = (rightRect.left - uiRect.left) + "px";
+    bar.style.top = (rightRect.bottom - uiRect.top + uiRect.height * 0.01) + "px";
+
+    const availableW = rightRect.width;
+    const availableH = uiRect.bottom - rightRect.bottom - (uiRect.height * 0.02);
+
+    const scaleW = availableW / barRect.width;
+    const scaleH = availableH / barRect.height;
+    const scale = Math.min(scaleW, scaleH, 1);
+
+    bar.style.transform = `scale(${scale})`;
   }
 
   _getSlotDigimon(side, index) {
@@ -1724,6 +2043,9 @@ class DigimonChart {
     if (centerImg) centerImg.src = selected.idle;
 
     this.updateStats(selected);
+    this.updateInfo(selected);
+    this.currentDigimon = selected;
+    this.updateInfoText(selected);
     this.clearEvoLines();
     this.clearPreLines();
     this.createRightEvoSlots();
@@ -1733,6 +2055,8 @@ class DigimonChart {
 
     this.evoIndex = 0;
     setTimeout(() => {
+      this.updateMood(selected);
+      this.scaleMoodBar();
       const rightSlots = document.querySelectorAll("#evo-slots-right .evo-slot-inner");
       const leftSlots = document.querySelectorAll("#evo-slots-left .evo-slot-inner");
       const old = document.getElementById("evo-cursor");
@@ -1809,14 +2133,20 @@ class DigimonChart {
     this.closeButton.style.pointerEvents = "none";
     this.playCloseSound();
     document.getElementById("status-bar").style.display = "none";
+    document.getElementById("info-bar").style.display = "none";
+    document.getElementById("mood-bar").style.display = "none";
     this.clearEvoLines();
     this.clearPreLines();
-    this.playCollapseAnimation();
+
+    this.inContent2 = false;
+    this.active = true;
 
   }
 
   returnToChart() {
     document.getElementById("status-bar").style.display = "none";
+    document.getElementById("info-bar").style.display = "none";
+    document.getElementById("mood-bar").style.display = "none";
     this.clearEvoLines();
     this.clearPreLines();
     document.querySelectorAll(".evo-slot-inner").forEach(el => {
@@ -1846,7 +2176,6 @@ class DigimonChart {
   }
 
   onResize() {
-
     const rect = this.chart.getBoundingClientRect();
 
     if (rect.width === this.lastWidth) return;
@@ -1859,8 +2188,17 @@ class DigimonChart {
       if (this.inContent2) {
         this.drawEvoLines(this.currentLayout);
         this.drawPreLines(this.currentPreLayout);
-        this.scaleStatusBar();
         this.updateEvoCursor();
+        requestAnimationFrame(() => {
+          this.scaleStatusBar();
+          this.scaleInfoBar();
+          this.updateMood(this.currentDigimon);
+          this.scaleMoodBar();
+          const el = document.getElementById("evo-info-text");
+          if (el && el.style.display !== "none") {
+            this.fitInfoText(el);
+          }
+        });
       }
     });
   }
@@ -2342,8 +2680,6 @@ window.chartSystem = new DigimonChart();
 ========================= */
 
 function setupMenuSystem() {
-  const menuSound = new Audio("sounds/blop2.ogg");
-  menuSound.volume = 0.5;
   const detoContent = document.getElementById("deto-content");
   const buttons = document.querySelectorAll(".menu-btn");
   const chart = document.querySelector(".chart");
@@ -2357,14 +2693,12 @@ function setupMenuSystem() {
         window.chartSystem.returnToChart();
       }
 
-      // 🔊 som de menu
       if (window.chartSystem && window.chartSystem.soundEnabled) {
         const menuSound = new Audio("sounds/blop2.ogg");
         menuSound.volume = 0.5;
         menuSound.play();
       }
 
-      // 🔄 Troca botão claro/escuro
       buttons.forEach(b => {
         b.classList.remove("active");
         b.querySelector("img").src = "images/menu_escuro.png";
@@ -2387,7 +2721,7 @@ function setupMenuSystem() {
 
       if (page === "deto") {
 
-        window.chartSystem.active = false; // 👈 desativa sistema
+        window.chartSystem.active = false;
 
         slots.style.display = "none";
         cursor.style.display = "none";
@@ -2416,7 +2750,7 @@ function autoResizeMenuText() {
     const maxHeight = span.clientHeight;
 
     let min = 0;
-    let max = 200; // limite alto seguro
+    let max = 200;
     let best = 0;
 
     while (min <= max) {
@@ -2443,8 +2777,3 @@ function autoResizeMenuText() {
 
 window.addEventListener("load", autoResizeMenuText);
 window.addEventListener("resize", autoResizeMenuText);
-
-
-/* =========================
-   detonado
-========================= */

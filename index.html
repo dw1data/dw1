@@ -34,6 +34,7 @@
 				<div class="evo-layout">
 					<div class="ui-panel evo-box">
 						<div id="evo-slots-left"></div>
+						<div id="evo-info-text"></div>
 					</div>
 
 					<div class="ui-panel center-box">
@@ -48,94 +49,122 @@
 
 					</div>
 
+					<div id="mood-bar">
+						<div id="mood-feliz" style="display:none">
+							<div id="mood-left-feliz">
+								<img id="mood-icon-feliz" class="mood-icon">
+							</div>
+							<span class="mood-label"><span id="mood-num-feliz"></span>
+						</div>
+
+						<div id="mood-disc" style="display:none">
+							<div id="mood-left-disc">
+								<img id="mood-icon-disc" class="mood-icon">
+							</div>
+							<span class="mood-label"><span id="mood-num-disc"></span>
+						</div>
+					</div>
+				</div>
+
+				<div id="info-bar">
+					<span class="info-label">DESC.</span>
+					<div class="info-val-box ui-panel"><span class="info-val" id="info-desc">0</span></div>
+					<span class="info-label">PESO</span>
+					<div class="info-val-box ui-panel"><span class="info-val" id="info-peso">0</span></div>
+
+					<span class="info-label">LUTAS</span>
+					<div class="info-val-box ui-panel"><span class="info-val" id="info-lutas">0</span></div>
+					<span class="info-label">TECS.</span>
+					<div class="info-val-box ui-panel"><span class="info-val" id="info-tecs">0</span></div>
 
 				</div>
-<div id="status-bar">
-  <div class="stat-row">
-    <div class="stat-left">
-      <img src="images/HP.png" class="stat-icon">
-      <span class="stat-label">HP</span>
-    </div>
-    <div class="stat-bar-wrap">
-      <span class="stat-num stat-num-lg" id="stat-hp">0000</span>
-      <div class="stat-bar-outer ui-panel">
-        <div class="stat-bar">
-          <div class="stat-fill" id="fill-hp"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="stat-row">
-    <div class="stat-left">
-      <img src="images/MP.png" class="stat-icon">
-      <span class="stat-label">MP</span>
-    </div>
-    <div class="stat-bar-wrap">
-      <span class="stat-num stat-num-lg" id="stat-mp">0000</span>
-      <div class="stat-bar-outer ui-panel">
-        <div class="stat-bar">
-          <div class="stat-fill" id="fill-mp"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="stat-row">
-    <div class="stat-left">
-      <img src="images/OFF.png" class="stat-icon">
-      <span class="stat-label">Off</span>
-    </div>
-    <div class="stat-bar-wrap">
-      <span class="stat-num" id="stat-off">000</span>
-      <div class="stat-bar-outer stat-bar-sm ui-panel">
-        <div class="stat-bar">
-          <div class="stat-fill" id="fill-off"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="stat-row">
-    <div class="stat-left">
-      <img src="images/DEF.png" class="stat-icon">
-      <span class="stat-label">Def</span>
-    </div>
-    <div class="stat-bar-wrap">
-      <span class="stat-num" id="stat-def">000</span>
-      <div class="stat-bar-outer stat-bar-sm ui-panel">
-        <div class="stat-bar">
-          <div class="stat-fill" id="fill-def"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="stat-row">
-    <div class="stat-left">
-      <img src="images/Speed.png" class="stat-icon">
-      <span class="stat-label stat-label-alt">Speed</span>
-    </div>
-    <div class="stat-bar-wrap">
-      <span class="stat-num" id="stat-spd">000</span>
-      <div class="stat-bar-outer stat-bar-sm ui-panel">
-        <div class="stat-bar">
-          <div class="stat-fill" id="fill-spd"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="stat-row">
-    <div class="stat-left">
-      <img src="images/Brains.png" class="stat-icon">
-      <span class="stat-label stat-label-alt">Brains</span>
-    </div>
-    <div class="stat-bar-wrap">
-      <span class="stat-num" id="stat-brn">000</span>
-      <div class="stat-bar-outer stat-bar-sm ui-panel">
-        <div class="stat-bar">
-          <div class="stat-fill" id="fill-brn"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
+				<div id="status-bar">
+					<div class="stat-row">
+						<div class="stat-left">
+							<img src="images/HP.png" class="stat-icon">
+							<span class="stat-label">HP</span>
+						</div>
+						<div class="stat-bar-wrap">
+							<span class="stat-num stat-num-lg" id="stat-hp">0000</span>
+							<div class="stat-bar-outer ui-panel">
+								<div class="stat-bar">
+									<div class="stat-fill" id="fill-hp"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="stat-row">
+						<div class="stat-left">
+							<img src="images/MP.png" class="stat-icon">
+							<span class="stat-label">MP</span>
+						</div>
+						<div class="stat-bar-wrap">
+							<span class="stat-num stat-num-lg" id="stat-mp">0000</span>
+							<div class="stat-bar-outer ui-panel">
+								<div class="stat-bar">
+									<div class="stat-fill" id="fill-mp"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="stat-row">
+						<div class="stat-left">
+							<img src="images/OFF.png" class="stat-icon">
+							<span class="stat-label">Off</span>
+						</div>
+						<div class="stat-bar-wrap">
+							<span class="stat-num" id="stat-off">000</span>
+							<div class="stat-bar-outer stat-bar-sm ui-panel">
+								<div class="stat-bar">
+									<div class="stat-fill" id="fill-off"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="stat-row">
+						<div class="stat-left">
+							<img src="images/DEF.png" class="stat-icon">
+							<span class="stat-label">Def</span>
+						</div>
+						<div class="stat-bar-wrap">
+							<span class="stat-num" id="stat-def">000</span>
+							<div class="stat-bar-outer stat-bar-sm ui-panel">
+								<div class="stat-bar">
+									<div class="stat-fill" id="fill-def"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="stat-row">
+						<div class="stat-left">
+							<img src="images/Speed.png" class="stat-icon">
+							<span class="stat-label stat-label-alt">Speed</span>
+						</div>
+						<div class="stat-bar-wrap">
+							<span class="stat-num" id="stat-spd">000</span>
+							<div class="stat-bar-outer stat-bar-sm ui-panel">
+								<div class="stat-bar">
+									<div class="stat-fill" id="fill-spd"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="stat-row">
+						<div class="stat-left">
+							<img src="images/Brains.png" class="stat-icon">
+							<span class="stat-label stat-label-alt">Brains</span>
+						</div>
+						<div class="stat-bar-wrap">
+							<span class="stat-num" id="stat-brn">000</span>
+							<div class="stat-bar-outer stat-bar-sm ui-panel">
+								<div class="stat-bar">
+									<div class="stat-fill" id="fill-brn"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<div class="left-panel">
@@ -661,16 +690,15 @@
 				<div id="slots-container"></div>
 
 				<img src="images/cursor.png" id="cursor" class="cursor">
+				<button id="soundToggle" class="sound-btn">
+					<img id="soundIcon" src="images/som.png">
+				</button>
 				<div id="close-button">
 					<img src="images/x.png">
 				</div>
 			</div>
-			
+
 		</div>
-		<button id="soundToggle" class="sound-btn">
-				<img id="soundIcon" src="images/som.png">
-			</button>
-	</div>
 	<script src="script.js"></script>
 </body>
 
