@@ -526,7 +526,7 @@ const digimonSprites = [
     id: "etemon",
     idle: "sprites/etemon.webp",
     anim: "sprites/etemon2.webp",
-    hp: 0, mp: 0, off: 0, def: 0, spd: 0, brn: 0, desc: 0, peso: 0, tecs: 49, lutas: 50,
+    hp: 2000, mp: 3000, off: 400, def: 200, spd: 400, brn: 300, desc: 0, peso: 15, tecs: 49, lutas: 50,
     pre: ["sukamon"],
     evo: [""]
   },
