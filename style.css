@@ -55,6 +55,17 @@ body {
   align-items: center;
 }
 
+footer {
+  position: relative;
+  transform: translateY(3cqw);
+  text-align: center;
+  font-family: inter, sans-serif;
+  font-size: 1.2cqw;
+  color: #ffffff;
+  text-shadow: 0 0 0.8cqw rgba(0,0,0,0.8);
+}
+
+
 /* ========================= LEFT PANEL / CHART ========================= */
 
 .left-panel {
@@ -144,9 +155,8 @@ body {
 
 .top-menu {
   position: absolute;
-  top: 0;
-  left: 0;
-  transform: translate(3%, -91.4%);
+  bottom: 99.4%;
+  left: 3cqw;
   display: flex;
   z-index: 100;
   width: 100%;

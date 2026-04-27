@@ -6464,6 +6464,7 @@ const i18n = {
     "info-peso": "PESO",
     "info-lutas": "LUTAS",
     "info-tecs": "TECS.",
+    "footer": "Projeto feito por fã, sem fins lucrativos, dedicado a Digimon World (1999). Não afiliado à Bandai Namco.",
   },
   en: {
     "menu-deto": "Walkthrough",
@@ -6472,6 +6473,7 @@ const i18n = {
     "info-peso": "WEIGHT",
     "info-lutas": "BATTLES",
     "info-tecs": "TECH.",
+    "footer": "A fan-made, non-profit project dedicated to Digimon World (1999). Not affiliated with Bandai Namco.",
   },
 };
 
@@ -6492,6 +6494,11 @@ function applyLang(lang) {
     const key = el.dataset.i18n;
     if (strings[key] !== undefined) el.textContent = strings[key];
   });
+
+  const footerEl = document.querySelector("footer[data-i18n]");
+  if (footerEl && strings[footerEl.dataset.i18n]) {
+    footerEl.textContent = strings[footerEl.dataset.i18n];
+  }
 
   document
     .getElementById("info-bar")
@@ -6517,6 +6524,7 @@ function applyLang(lang) {
   if (window.techSystem?.selectedTech) {
     window.techSystem.buildChanceTable(window.techSystem.selectedTech);
   }
+  
 }
 
 function setupLangButton() {
@@ -6524,7 +6532,7 @@ function setupLangButton() {
   if (!btn) return;
 
   const savedLang = storageGet("lang");
-  if (savedLang && savedLang !== currentLang) applyLang(savedLang);
+  applyLang(savedLang || currentLang);
   btn.addEventListener("click", () =>
     applyLang(currentLang === "pt" ? "en" : "pt"),
   );
